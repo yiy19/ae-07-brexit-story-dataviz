@@ -1,6 +1,6 @@
 ---
 title: "Brexit"
-author: "You!"
+author: "Ye Dam Yi"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -21,6 +21,7 @@ The data from the survey is in `data/brexit.csv`.
 
 ```{r message = FALSE}
 brexit <- read_csv("data/brexit.csv")
+glimpse(brexit)
 ```
 
 In the course video we made the following visualisation.
@@ -58,12 +59,12 @@ Add `scales = "free_x"` as an argument to the `facet_wrap()` function.
 How does the visualisation change?
 How is the story this visualisation telling different than the story the original plot tells?
 
-```{r}
+```{r free-scales}
 ggplot(brexit, aes(y = opinion, fill = opinion)) +
   geom_bar() +
   facet_wrap(~region,
     nrow = 1, labeller = label_wrap_gen(width = 12),
-    # ___
+    scales = "free_x"
   ) +
   guides(fill = FALSE) +
   labs(
@@ -79,6 +80,9 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
   )) +
   theme_minimal()
 ```
+
+Adding the argument scales = "free_x" to the facet-wrap function changed the visualization of the graph as the scale of the x-axis changed to vary across regions. The story that the second graph is telling is different from the one the first graph is telling in that the second graph focuses on the proportion of each of the answers to each other across regions. Within each region, the proportion of the asnwers "wrong" and "right" is given emphasis. This is in contrast to the first graph, which highlighted both the proportion of the answers for each region as well as the magnitude of the polls taken in each region. 
+
 
 ### Exercise 2 - Comparing proportions across facets
 
