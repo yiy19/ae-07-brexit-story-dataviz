@@ -149,3 +149,19 @@ scale_fill_manual(values = mypalette, guide = guide_legend(title = "Region"))
 This plot tells a different story than the previous plot. This plot tells the audience that Scotland and London residents think Brexit was wrong the most whereas the other regions were more divided in their opinion. This graph is clearer in showing the regional differences in terms of the proportion of each of the opinion. 
 
 
+```{r histogram-diamond}
+p = ggplot() + geom_histogram(aes(x = carat), data = diamonds)
+p
+p$layers
+# rewrite the code using layers function
+p_layer = ggplot() +
+  layer(
+    data = diamonds, mapping = aes(x = carat), geom = "bar", stat = "bin", position = "stack"
+    )
+p_layer
+
+# different geoms
+ggplot() +
+  layer(data = diamonds, mapping = aes(x = carat, color = clarity, alpha = .3), geom = "point", stat = "count", position = "jitter" 
+    )
+```
