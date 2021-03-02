@@ -105,7 +105,7 @@ head(brexit_prop)
 # plot
 brexit_prop %>% 
   ggplot(aes(x = prop_op, fill = opinion)) +
-  geom_bar(aes(y = opinion), stat = "identity") +
+  geom_bar(aes(y = opinion), stat = "identity") + # stat identity was key to getting the scale right
   facet_wrap(~region, nrow = 1, labeller = label_wrap_gen(width = 3)) +
   guides(fill = FALSE) +
   labs( 
@@ -132,10 +132,10 @@ Recreate the same visualisation from the previous exercise, this time dodging th
 How is the story this visualisation telling different than the story the previous plot tells?
 
 ```{r compare-props, eval = FALSE}
+mypalette <- c("#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#c51b8a", "#7a0177")
 brexit_prop %>% 
-  ggplot(aes(x = prop_op, fill = opinion)) +
-  geom_bar(aes(y = opinion), stat = "identity", position = "dodge") +
-  guides(fill = FALSE) +
+  ggplot(aes(x = prop_op, fill = opinion, group = region)) +
+  geom_bar(aes(y = opinion, fill = region), stat = "identity", position = "dodge") +
   labs( 
     title = "Was Britain right/wrong to vote to leave EU?",
     subtitle = "YouGov Survey Results, 2-3 September 2019",
@@ -143,11 +143,9 @@ brexit_prop %>%
     x = NULL, y = NULL
   ) + 
     scale_x_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c(
-    "Wrong" = "#f1a340",
-    "Right" = "#998ec3",
-    "Don't know" = "gray"
-  )) +
+scale_fill_manual(values = mypalette, guide = guide_legend(title = "Region"))
   theme_minimal()
 ```
-```
+This plot tells a different story than the previous plot. This plot tells the audience that Scotland and London residents think Brexit was wrong the most whereas the other regions were more divided in their opinion. This graph is clearer in showing the regional differences in terms of the proportion of each of the opinion. 
+
+
