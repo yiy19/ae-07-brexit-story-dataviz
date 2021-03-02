@@ -123,14 +123,31 @@ brexit_prop %>%
   theme_minimal()
 
 ```
-This graph highlights the proportion of each of the opinions in each region, across the six regions. We can easily see what the majority of the people thought about Brexit and how divided the opinion is across the regions. 
+This graph highlights the proportion of each of the opinions in each region, across the six regions. We can easily see what the majority of the people thought about Brexit and how divided the opinion is across the regions. Scotland and London has more than the majority of people thinking that Brexit was wrong whereas in the rest of the regions people are divided. 
 
 
 ### Exercise 3 - Comparing proportions across bars
 
-Recreate the same visualisation from the previous exercise, this time dodging the bars for opinion proportions for each region, rather than faceting by region and then improve the legend.
+Recreate the same visualisation from the previous exercise, this time dodging the bars for opinion proportions for each region, rather than faceting by region, and then improve the legend.
 How is the story this visualisation telling different than the story the previous plot tells?
 
-```{r}
-# code goes here
+```{r compare-props, eval = FALSE}
+brexit_prop %>% 
+  ggplot(aes(x = prop_op, fill = opinion)) +
+  geom_bar(aes(y = opinion), stat = "identity", position = "dodge") +
+  guides(fill = FALSE) +
+  labs( 
+    title = "Was Britain right/wrong to vote to leave EU?",
+    subtitle = "YouGov Survey Results, 2-3 September 2019",
+    caption = "Source: bit.ly/2lCJZVg",
+    x = NULL, y = NULL
+  ) + 
+    scale_x_continuous(labels = scales::percent) +
+    scale_fill_manual(values = c(
+    "Wrong" = "#f1a340",
+    "Right" = "#998ec3",
+    "Don't know" = "gray"
+  )) +
+  theme_minimal()
+```
 ```
